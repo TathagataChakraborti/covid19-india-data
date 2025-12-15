@@ -13,7 +13,7 @@ import {
   TableCell,
   Button,
   Link,
-} from 'carbon-components-react';
+} from '@carbon/react';
 
 let config = require('../../config.json');
 let data_server = config['metadata']['data_server'];

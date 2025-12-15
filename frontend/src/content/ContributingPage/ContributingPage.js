@@ -1,7 +1,7 @@
 import React from 'react';
 import { Contributing, Resource } from '../../components/Info';
-import { LogoGithub32, LogoSlack32, Sql32, Api_132 } from '@carbon/icons-react';
-import { Tag, Link, Button, CodeSnippet } from 'carbon-components-react';
+import { LogoGithub, LogoSlack, Sql, Api } from '@carbon/icons-react';
+import { Tag, Link, Button, CodeSnippet } from '@carbon/react';
 
 let config = require('../../config.json');
 let resource_list = [
@@ -148,21 +148,21 @@ class ContributingPage extends React.Component {
           <div className="bx--row">
             <Contributing
               props={{
-                icon: <LogoGithub32 />,
+                icon: <LogoGithub />,
                 title: 'GitHub',
                 link: config['metadata']['link_to_code'],
               }}
             />
             <Contributing
               props={{
-                icon: <LogoSlack32 />,
+                icon: <LogoSlack />,
                 title: 'Join our Community on Slack',
                 link: config['metadata']['link_to_slack'],
               }}
             />
             <Contributing
               props={{
-                icon: <Sql32 />,
+                icon: <Sql />,
                 title: (
                   <>
                     Download the Data{' '}
@@ -176,7 +176,7 @@ class ContributingPage extends React.Component {
             />
             <Contributing
               props={{
-                icon: <Api_132 />,
+                icon: <Api />,
                 title: 'Connect with the API',
                 link: '/#/data',
                 internal: true,

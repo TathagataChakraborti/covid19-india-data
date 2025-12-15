@@ -2,12 +2,7 @@ import React from 'react';
 import '@carbon/charts/styles.css';
 import { LineChart } from '@carbon/charts-react';
 import { prepareData, prepareOptions, fetchData } from '../Info';
-import {
-  Accordion,
-  AccordionItem,
-  Loading,
-  CodeSnippet,
-} from 'carbon-components-react';
+import { Accordion, AccordionItem, Loading, CodeSnippet } from '@carbon/react';
 
 class HighlightsElement extends React.Component {
   constructor(props) {

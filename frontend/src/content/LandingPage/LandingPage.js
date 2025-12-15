@@ -1,12 +1,6 @@
 import React from 'react';
 import DWChart from 'react-datawrapper-chart';
-import {
-  Csv16,
-  Json16,
-  Sql16,
-  Collaborate16,
-  Document16,
-} from '@carbon/icons-react';
+import { Csv, Json, Sql, Collaborate, Document } from '@carbon/icons-react';
 import { fetchData, generateStateID } from '../../components/Info';
 import {
   Link,
@@ -21,7 +15,7 @@ import {
   Loading,
   ButtonSet,
   ToastNotification,
-} from 'carbon-components-react';
+} from '@carbon/react';
 
 // const axis_plot_options = {
 //   title: null,
@@ -244,13 +238,14 @@ class LandingPage extends React.Component {
                   kind="info"
                   hideCloseButton
                   lowContrast
-                  caption={
-                    <Link
-                      href="https://covid19bharat.org/analysis"
-                      target="_blank">
-                      View
-                    </Link>
-                  }
+                  caption="View"
+                  // caption={
+                  //   <Link
+                  //     href="https://covid19bharat.org/analysis"
+                  //     target="_blank">
+                  //     View
+                  //   </Link>
+                  // }
                   subtitle={
                     <span>
                       We are delighted to collaborate with DataKind Bengaluru on
@@ -269,7 +264,8 @@ class LandingPage extends React.Component {
                   kind="success"
                   hideCloseButton
                   lowContrast
-                  caption={<Link href="/#/tasks">Compete</Link>}
+                  caption="Compete"
+                  // caption={<Link href="/#/tasks">Compete</Link>}
                   subtitle={
                     <span>
                       Join as at the virtual hackathon at IndoML 2021 and win
@@ -295,7 +291,7 @@ class LandingPage extends React.Component {
             <ButtonSet stacked>
               <Button
                 href="https://github.com/IBM/covid19-india-data/tree/main/data/csv"
-                renderIcon={Csv16}
+                renderIcon={Csv}
                 iconDescription="Download"
                 kind="ghost">
                 CSV data
@@ -303,7 +299,7 @@ class LandingPage extends React.Component {
 
               <Button
                 href="https://github.com/IBM/covid19-india-data/tree/main/data/json"
-                renderIcon={Json16}
+                renderIcon={Json}
                 iconDescription="Download"
                 kind="ghost">
                 JSON data
@@ -311,7 +307,7 @@ class LandingPage extends React.Component {
 
               <Button
                 href="https://ibm.biz/covid19-india-db"
-                renderIcon={Sql16}
+                renderIcon={Sql}
                 iconDescription="Download"
                 kind="ghost">
                 SQLite data
@@ -327,9 +323,9 @@ class LandingPage extends React.Component {
 
             <Button
               href="/#/contributing"
-              renderIcon={Collaborate16}
+              renderIcon={Collaborate}
               iconDescription="Contribute"
-              size="default"
+              // size="default"
               kind="tertiary">
               Contribute
             </Button>
@@ -344,9 +340,9 @@ class LandingPage extends React.Component {
 
             <Button
               href="https://arxiv.org/abs/2110.02311"
-              renderIcon={Document16}
+              renderIcon={Document}
               iconDescription="Paper"
-              size="default"
+              // size="default"
               kind="tertiary">
               Read paper
             </Button>

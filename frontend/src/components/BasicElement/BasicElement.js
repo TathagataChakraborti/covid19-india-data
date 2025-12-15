@@ -27,7 +27,7 @@ import {
   TableBody,
   TableCell,
   ToastNotification,
-} from 'carbon-components-react';
+} from '@carbon/react';
 
 let config = require('../../config.json');
 let sampling_rate = config['config']['sampling_rate'];

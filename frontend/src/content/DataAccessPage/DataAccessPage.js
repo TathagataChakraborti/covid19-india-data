@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sql32, Api_132, Csv32 } from '@carbon/icons-react';
+import { Sql, Api, Csv } from '@carbon/icons-react';
 import * as CodeSnippets from './CodeSnippets.js';
 import {
   Link,
@@ -8,7 +8,7 @@ import {
   ToastNotification,
   UnorderedList,
   ListItem,
-} from 'carbon-components-react';
+} from '@carbon/react';
 
 let config = require('../../config.json');
 
@@ -35,7 +35,7 @@ class DataAccessPage extends React.Component {
         <div className="bx--col-lg-12">
           <h3>
             {' '}
-            <Sql32 className="text-blue" /> Download the SQL Database{' '}
+            <Sql className="text-blue" /> Download the SQL Database{' '}
             {this.state.db_access && (
               <span style={{ fontSize: 'x-large' }}>
                 {this.state.db_access} downloads
@@ -152,7 +152,7 @@ class DataAccessPage extends React.Component {
         <div className="bx--col-lg-12">
           <h3>
             {' '}
-            <Csv32 className="text-blue" /> Download in CSV form{' '}
+            <Csv className="text-blue" /> Download in CSV form{' '}
             {this.state.db_access && (
               <span style={{ fontSize: 'x-large' }}>
                 {this.state.csv_access} downloads
@@ -213,7 +213,7 @@ class DataAccessPage extends React.Component {
         <div className="bx--col-lg-12" style={{ marginBottom: '100px' }}>
           <h3>
             {' '}
-            <Api_132 className="text-blue" /> Connect to the API{' '}
+            <Api className="text-blue" /> Connect to the API{' '}
             {this.state.db_access && (
               <span style={{ fontSize: 'x-large' }}>
                 {this.state.api_access} downloads

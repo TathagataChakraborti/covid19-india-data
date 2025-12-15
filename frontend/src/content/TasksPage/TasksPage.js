@@ -1,8 +1,8 @@
 import React from 'react';
 import { TASKS } from './tasks.js';
 import { generateURL } from '../../components/Info';
-import { Link, Button, Tile, Tag } from 'carbon-components-react';
-import { TrophyFilled16 } from '@carbon/icons-react';
+import { Link, Button, Tile, Tag } from '@carbon/react';
+import { TrophyFilled } from '@carbon/icons-react';
 
 const Task = props => (
   <Tile className="task-tile">
@@ -85,9 +85,9 @@ class TasksPage extends React.Component {
                   <br />
 
                   <div style={{ marginBottom: '5px' }}>
-                    <TrophyFilled16 style={{ fill: 'gold' }} />
-                    <TrophyFilled16 style={{ fill: 'silver' }} />
-                    <TrophyFilled16 style={{ fill: 'brown' }} />
+                    <TrophyFilled style={{ fill: 'gold' }} />
+                    <TrophyFilled style={{ fill: 'silver' }} />
+                    <TrophyFilled style={{ fill: 'brown' }} />
                   </div>
                   <div>
                     <h6 style={{ fontWeight: 'normal' }}>

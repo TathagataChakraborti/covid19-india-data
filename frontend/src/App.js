@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './app.scss';
 
-import { Content } from 'carbon-components-react/lib/components/UIShell';
+import { Content } from '@carbon/react';
 import { Route, Switch } from 'react-router-dom';
 // import { generateStateID } from './components/Info';
 
@@ -86,4 +86,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export { App };

@@ -18,20 +18,20 @@
     "deploy": "rm -rf ./build && yarn build && cf push -f manifest.yml"
   },
   "dependencies": {
-    "@carbon/charts-react": "^0.41.91",
-    "@carbon/grid": "^10.3.0",
-    "@carbon/icons-react": "^10.3.0",
-    "carbon-components": "^10.3.0",
-    "carbon-components-react": "^7.3.0",
-    "carbon-icons": "7.0.7",
+    "@carbon/charts-react": "^1.11.10",
+    "@carbon/react": "^1.31.3",
+    "copy-to-clipboard": "3.3.1",
     "d3": "^6.0.0",
-    "react": "^16.8.6",
+    "react": "^18.1.0",
+    "react-autosuggest": "^10.0.2",
     "react-datawrapper-chart": "^1.1.1",
-    "react-dom": "^16.8.6",
+    "react-device-detect": "2.1.2",
+    "react-dom": "^18.1.0",
     "react-ga": "^3.3.0",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "4.0.3",
-    "react-datawrapper-chart": "1.1.1"
+    "react-router-hash-link": "^1.2.2",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.51.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.5.2",

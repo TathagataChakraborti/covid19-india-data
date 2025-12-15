@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, ToastNotification } from 'carbon-components-react';
+import { Link, ToastNotification } from '@carbon/react';
 import { HighlightsElement } from '../../components/HighlightsElement';
 import { QUERIES } from './query.js';
 
@@ -24,11 +24,12 @@ class AnalysisPage extends React.Component {
               kind="info"
               hideCloseButton
               lowContrast
-              caption={
-                <Link href={config['metadata']['link_to_code']} target="_blank">
-                  GitHub
-                </Link>
-              }
+              caption="GitHub"
+              // caption={
+              //   <Link href={config['metadata']['link_to_code']} target="_blank">
+              //     GitHub
+              //   </Link>
+              // }
               subtitle={
                 <span>
                   If you would like to add your own analysis, please open an

@@ -2,9 +2,10 @@ import React from 'react';
 import GitHubButton from 'react-github-btn';
 import { generateStateID } from '../../components/Info';
 import { Link } from 'react-router-dom';
-import { Tag } from 'carbon-components-react';
 import {
+  Tag,
   Header,
+  HeaderContainer,
   HeaderMenuButton,
   HeaderName,
   SkipToContent,
@@ -13,9 +14,7 @@ import {
   SideNavLink,
   SideNavDivider,
   SideNavMenuItem,
-} from 'carbon-components-react/lib/components/UIShell';
-
-import HeaderContainer from 'carbon-components-react/lib/components/UIShell/HeaderContainer';
+} from '@carbon/react';
 
 let config = require('../../config.json');
 let states = config['states'];
