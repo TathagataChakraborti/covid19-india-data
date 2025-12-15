@@ -147,7 +147,7 @@ frontend/.eslintcache
 
 
 # Skip database file
-serve_db/covid-india.db
+# serve_db/covid-india.db
 
 # skip vim swap files
 .*.*.swp
