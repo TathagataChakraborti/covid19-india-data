@@ -299,9 +299,6 @@ class LandingPage extends React.Component {
             <Column lg={1} md={4} sm={4}>
               {!this.state.last_updated && (
                 <>
-                  <br />
-                  <br />
-
                   <InlineNotification
                     aria-label="closes notification"
                     kind="error"
@@ -309,9 +306,12 @@ class LandingPage extends React.Component {
                     hideCloseButton
                     lowContrast
                     statusIconDescription="notification"
-                    subtitle="Hold on! It might take up to 50 seconds to load data."
+                    subtitle="Hold on! It might take up to 50 seconds to load data. Refresh if it's taking longer."
                     title="Loading"
                   />
+
+                  <br />
+                  <br />
                 </>
               )}
 

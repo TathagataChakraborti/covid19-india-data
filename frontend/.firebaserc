@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "covid19-india-archive",
+    "prod": "covid19-india-archive"
+  },
+  "targets": {},
+  "etags": {}
+}
