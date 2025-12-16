@@ -40,7 +40,7 @@ const axis_plot_options = {
   },
   curve: 'curveMonotoneX',
   height: '400px',
-  width: '70vw',
+  width: '100%',
 };
 
 function prepareData(data, legends, keys) {

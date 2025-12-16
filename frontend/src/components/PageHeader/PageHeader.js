@@ -109,7 +109,7 @@ class PageHeader extends React.Component {
                     onClick={this.onClickTab.bind(this, 'tasks')}
                     isActive={this.state.tasks}>
                     Datathon{' '}
-                    <Tag type="green" className="compressed-tag">
+                    <Tag type="green" className="compressed-tag flattened-tag">
                       new
                     </Tag>
                   </SideNavLink>
@@ -146,14 +146,20 @@ class PageHeader extends React.Component {
                         {states[key]['name']}
 
                         {states[key]['is_complete'] && (
-                          <Tag type="blue" className="compressed-tag">
+                          <Tag
+                            type="blue"
+                            className="compressed-tag flattened-tag"
+                            style={{ marginLeft: '10px' }}>
                             {' '}
                             completed{' '}
                           </Tag>
                         )}
 
                         {!states[key]['is_complete'] && (
-                          <Tag type="gray" className="compressed-tag">
+                          <Tag
+                            type="gray"
+                            className="compressed-tag flattened-tag"
+                            style={{ marginLeft: '10px' }}>
                             {' '}
                             in progress{' '}
                           </Tag>
