@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link } from 'carbon-components-react';
+import { Link } from '@carbon/react';
 
 const references = {
   1: 'https://www.cdc.gov/mmwr/volumes/70/wr/mm7019e3.htm',
@@ -55,7 +54,7 @@ const TASKS = [
     states: ['MP'],
   },
   {
-    column: 0,
+    column: 2,
     title: 'Positional Entity Parser',
     description:
       'In this task, you are required to model a domain-dependent precision parser to extract patient and pandemic data from plain text information in health bulletins.',
@@ -113,7 +112,7 @@ const TASKS = [
     states: ['ALL'],
   },
   {
-    column: 2,
+    column: 3,
     title: 'Flex Your Brains',
     description: (
       <>

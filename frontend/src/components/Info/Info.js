@@ -1,6 +1,7 @@
 import React from 'react';
 import { processName } from '../BasicElement';
 import {
+  Column,
   Tile,
   ClickableTile,
   DataTable,
@@ -13,7 +14,7 @@ import {
   TableCell,
   Button,
   Link,
-} from 'carbon-components-react';
+} from '@carbon/react';
 
 let config = require('../../config.json');
 let data_server = config['metadata']['data_server'];
@@ -39,7 +40,7 @@ const axis_plot_options = {
   },
   curve: 'curveMonotoneX',
   height: '400px',
-  width: '70vw',
+  width: '100%',
 };
 
 function prepareData(data, legends, keys) {
@@ -111,7 +112,7 @@ const generateStateID = stateName => {
 };
 
 const Contributing = props => (
-  <div className="bx--col-lg-4">
+  <Column lg={1} md={2} sm={4}>
     <ClickableTile
       className="contributing-card-inner"
       href={props.props.link}
@@ -123,7 +124,7 @@ const Contributing = props => (
     </ClickableTile>
     <br />
     <br />
-  </div>
+  </Column>
 );
 
 const Resource = props => (

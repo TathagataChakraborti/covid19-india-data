@@ -3,11 +3,13 @@ import '@carbon/charts/styles.css';
 import { LineChart } from '@carbon/charts-react';
 import { prepareData, prepareOptions, fetchData } from '../Info';
 import {
+  Grid,
+  Column,
   Accordion,
   AccordionItem,
   Loading,
   CodeSnippet,
-} from 'carbon-components-react';
+} from '@carbon/react';
 
 class HighlightsElement extends React.Component {
   constructor(props) {
@@ -53,10 +55,8 @@ class HighlightsElement extends React.Component {
 
   render() {
     return (
-      <div
-        className="bx--grid bx--grid--full-width bx--container"
-        style={{ width: '100%', paddingTop: '0' }}>
-        <div className="bx--col-lg-16">
+      <Grid className="offset">
+        <Column lg={4} md={4} sm={4}>
           {Object.keys(this.state.query_data).length > 0 && (
             <div>
               <h3>
@@ -94,6 +94,9 @@ class HighlightsElement extends React.Component {
                     </AccordionItem>
                   );
                 })}
+
+                <br />
+                <br />
               </Accordion>
             </div>
           )}
@@ -104,8 +107,8 @@ class HighlightsElement extends React.Component {
                 <Loading description="Loading highlights" withOverlay />
               </>
             )}
-        </div>
-      </div>
+        </Column>
+      </Grid>
     );
   }
 }

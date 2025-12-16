@@ -1,5 +1,4 @@
 import React from 'react';
-import '@carbon/charts/styles.css';
 import { LineChart } from '@carbon/charts-react';
 import {
   prepareData,
@@ -8,6 +7,8 @@ import {
   DataTableElement,
 } from '../Info';
 import {
+  Grid,
+  Column,
   Tag,
   Button,
   MultiSelect,
@@ -16,6 +17,9 @@ import {
   Link,
   Tabs,
   Tab,
+  TabList,
+  TabPanels,
+  TabPanel,
   DatePicker,
   DatePickerInput,
   CodeSnippet,
@@ -26,8 +30,9 @@ import {
   TableHeader,
   TableBody,
   TableCell,
-  ToastNotification,
-} from 'carbon-components-react';
+  ActionableNotification,
+} from '@carbon/react';
+import '@carbon/charts/styles.css';
 
 let config = require('../../config.json');
 let sampling_rate = config['config']['sampling_rate'];
@@ -389,24 +394,20 @@ class BasicElement extends React.Component {
 
   render() {
     return (
-      <div
-        className="bx--grid bx--grid--full-width bx--container"
-        style={{ width: '100%' }}>
-        <div className="bx--col-lg-16">
+      <Grid className="offset">
+        <Column lg={4} md={4} sm={4}>
           <h1>
             {this.state.name}
-
+            &nbsp;
             <Tag type="green" className="flattened-tag">
               {this.state.short_name}
             </Tag>
-
             {this.state.status_flags.is_complete && (
               <Tag type="blue" className="flattened-tag">
                 {' '}
                 completed{' '}
               </Tag>
             )}
-
             {!this.state.status_flags.is_complete && (
               <Tag type="gray" className="flattened-tag">
                 {' '}
@@ -417,330 +418,351 @@ class BasicElement extends React.Component {
           <br />
           <br />
 
-          <Tabs scrollIntoView={false} type="container">
-            <Tab label="Visualize">
-              <div className="bx--row" style={{ marginTop: '20px' }}>
-                <div className="bx--col-lg-5 state-header">
-                  {Object.keys(this.state.dashboard_data).length > 0 && (
-                    <DataTable
-                      rows={this.state.dashboard_data.rowData}
-                      headers={this.state.dashboard_data.headerData}>
-                      {({ rows, headers, getHeaderProps, getTableProps }) => (
-                        <Table {...getTableProps()} size="short">
-                          <TableHead>
-                            <TableRow>
-                              {headers.map(header => (
-                                <TableHeader {...getHeaderProps({ header })}>
-                                  {header.header}
-                                </TableHeader>
-                              ))}
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {rows.map(row => (
-                              <TableRow key={row.id}>
-                                {row.cells.map(cell => (
-                                  <TableCell key={cell.id}>
-                                    {cell.value}
-                                  </TableCell>
+          <Tabs>
+            <TabList contained>
+              <Tab>Visualize</Tab>
+              <Tab>View Schema</Tab>
+              <Tab>View API</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <Grid>
+                  <Column lg={2} md={4} sm={4}>
+                    {Object.keys(this.state.dashboard_data).length > 0 && (
+                      <DataTable
+                        rows={this.state.dashboard_data.rowData}
+                        headers={this.state.dashboard_data.headerData}>
+                        {({ rows, headers, getHeaderProps, getTableProps }) => (
+                          <Table {...getTableProps()} size="short">
+                            <TableHead>
+                              <TableRow>
+                                {headers.map(header => (
+                                  <TableHeader {...getHeaderProps({ header })}>
+                                    {header.header}
+                                  </TableHeader>
                                 ))}
                               </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      )}
-                    </DataTable>
-                  )}
-                  <br />
-                  <br />
-                </div>
-                <div className="bx--col-lg-7">
-                  <h4>Visualize {this.state.name} data as time series</h4>
-                  <hr />
-                  <p>
-                    The data for visualization is being sampled at every{' '}
-                    <span className="text-blue">
-                      {this.state.status_flags.sampling_rate}
-                    </span>{' '}
-                    days to save you data. To access and analyze the full data,
-                    click <Link href="/#/contributing">here</Link>.
-                  </p>
+                            </TableHead>
+                            <TableBody>
+                              {rows.map(row => (
+                                <TableRow key={row.id}>
+                                  {row.cells.map(cell => (
+                                    <TableCell key={cell.id}>
+                                      {cell.value}
+                                    </TableCell>
+                                  ))}
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        )}
+                      </DataTable>
+                    )}
+                    <br />
+                    <br />
+                  </Column>
 
-                  <br />
-                  <NumberInput
-                    id="sampling_rate"
-                    light
-                    size="sm"
-                    min={1}
-                    value={this.state.status_flags.sampling_rate}
-                    onChange={this.handleInputChange.bind(this)}
-                    ref={input => {
-                      this.textInput = input;
-                    }}
-                  />
+                  <Column lg={2} md={4} sm={4}>
+                    <h4>Visualize {this.state.name} data as time series</h4>
+                    <hr />
+                    <p>
+                      The data for visualization is being sampled at every{' '}
+                      <span className="text-blue">
+                        {this.state.status_flags.sampling_rate}
+                      </span>{' '}
+                      days to save you data. To access and analyze the full
+                      data, click <Link href="/#/contributing">here</Link>.
+                    </p>
 
-                  <MultiSelect
-                    id="table_name"
-                    items={listOfTables(this.state.schema)}
-                    itemToString={item => (item ? item.text : '')}
-                    onChange={value => {
-                      this.logTableSelection(value.selectedItems);
-                    }}
-                    label={PrimaryLabel}
-                  />
-
-                  <MultiSelect
-                    id="column_name"
-                    key={this.state.status_flags.selectedKey}
-                    items={this.state.status_flags.columns_available}
-                    initialSelectedItems={
-                      this.state.status_flags.columns_selected
-                    }
-                    itemToString={item => (item ? item.text : '')}
-                    onChange={value => {
-                      this.logColumnSelection(value.selectedItems);
-                    }}
-                    label={SecondaryLabel}
-                    disabled={
-                      this.state.status_flags.tables_selected.length === 0
-                    }
-                  />
-
-                  <br />
-
-                  <Button
-                    kind="primary"
-                    disabled={
-                      this.state.status_flags.tables_selected.length === 0
-                    }
-                    size="sm"
-                    onClick={this.drawSelected.bind(this)}
-                    style={{ marginRight: '10px' }}>
-                    Draw Selected
-                  </Button>
-                  <Button
-                    kind="secondary"
-                    size="sm"
-                    onClick={this.drawAll.bind(this)}>
-                    Draw All
-                  </Button>
-
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-
-                  <h4>Fetch {this.state.name} bulletin on a particular date</h4>
-                  <hr />
-
-                  <DatePicker
-                    dateFormat="Y/m/d"
-                    datePickerType="single"
-                    value={this.state.status_flags.date}
-                    onChange={this.logDateSelection.bind(this)}>
-                    <DatePickerInput
-                      id="date-picker-calendar-id"
-                      placeholder="yyyy/mm/dd"
-                      labelText="Date picker"
-                      type="text"
-                      invalid={this.state.status_flags.date_picker_invalid}
-                      invalidText={this.state.status_flags.date_picker_status}
+                    <br />
+                    <NumberInput
+                      id="sampling_rate"
+                      light
                       size="sm"
+                      min={1}
+                      value={this.state.status_flags.sampling_rate}
+                      onChange={this.handleInputChange.bind(this)}
+                      ref={input => {
+                        this.textInput = input;
+                      }}
                     />
-                  </DatePicker>
 
-                  <br />
-                  <Button
-                    kind="secondary"
-                    size="sm"
-                    onClick={this.fetchDataOnDate.bind(this)}>
-                    Fetch Data
-                  </Button>
+                    <MultiSelect
+                      id="table_name"
+                      items={listOfTables(this.state.schema)}
+                      itemToString={item => (item ? item.text : '')}
+                      onChange={value => {
+                        this.logTableSelection(value.selectedItems);
+                      }}
+                      label={PrimaryLabel}
+                    />
 
-                  {this.state.linkToDailyBulletin && (
-                    <Link href={this.state.linkToDailyBulletin} target="_blank">
-                      <Button kind="primary" size="sm">
-                        View Bulletin
-                      </Button>
-                    </Link>
-                  )}
+                    <MultiSelect
+                      id="column_name"
+                      key={this.state.status_flags.selectedKey}
+                      items={this.state.status_flags.columns_available}
+                      initialSelectedItems={
+                        this.state.status_flags.columns_selected
+                      }
+                      itemToString={item => (item ? item.text : '')}
+                      onChange={value => {
+                        this.logColumnSelection(value.selectedItems);
+                      }}
+                      label={SecondaryLabel}
+                      disabled={
+                        this.state.status_flags.tables_selected.length === 0
+                      }
+                    />
 
-                  <br />
-                  <br />
-                  <br />
-                  <br />
+                    <br />
 
-                  <h4>Download full data</h4>
-                  <hr />
-
-                  <a
-                    href={
-                      'https://github.com/IBM/covid19-india-data/raw/main/data/' +
-                      this.state.short_name +
-                      '.xlsx'
-                    }
-                    download={this.state.short_name + '_data.xlsx'}
-                    className="button-generic">
-                    <Button kind="secondary" size="sm">
-                      Excel
+                    <Button
+                      kind="primary"
+                      disabled={
+                        this.state.status_flags.tables_selected.length === 0
+                      }
+                      size="sm"
+                      onClick={this.drawSelected.bind(this)}
+                      style={{ marginRight: '10px' }}>
+                      Draw Selected
                     </Button>
-                  </a>
-
-                  <a
-                    href={'https://ibm.biz/covid19-india-db'}
-                    download="covid19-india-db"
-                    className="button-generic">
-                    <Button kind="secondary" size="sm">
-                      SQL
+                    <Button
+                      kind="secondary"
+                      size="sm"
+                      onClick={this.drawAll.bind(this)}>
+                      Draw All
                     </Button>
-                  </a>
 
-                  {this.state.link_to_govt_dashboard && (
-                    <>
-                      <br />
-                      <br />
-                      <ToastNotification
-                        kind="info"
-                        hideCloseButton
-                        lowContrast
-                        caption={
-                          <Link
-                            href={this.state.link_to_govt_dashboard}
-                            target="_blank">
-                            #KeralaFightsCorona
-                          </Link>
-                        }
-                        subtitle={
-                          <span>
-                            Check out the efforts of the state government on
-                            their website{' '}
-                            <Link
-                              href={this.state.link_to_govt_dashboard}
-                              target="_blank">
-                              here
-                            </Link>
-                            .
-                          </span>
-                        }
-                        title="Official Dashboard"
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                    <h4>
+                      Fetch {this.state.name} bulletin on a particular date
+                    </h4>
+                    <hr />
+
+                    <DatePicker
+                      dateFormat="Y/m/d"
+                      datePickerType="single"
+                      value={this.state.status_flags.date}
+                      onChange={this.logDateSelection.bind(this)}>
+                      <DatePickerInput
+                        id="date-picker-calendar-id"
+                        placeholder="yyyy/mm/dd"
+                        labelText="Date picker"
+                        type="text"
+                        invalid={this.state.status_flags.date_picker_invalid}
+                        invalidText={this.state.status_flags.date_picker_status}
+                        size="sm"
                       />
-                    </>
-                  )}
-                </div>
-              </div>
+                    </DatePicker>
 
-              <br />
-              <br />
+                    <br />
+                    <Button
+                      kind="secondary"
+                      size="sm"
+                      onClick={this.fetchDataOnDate.bind(this)}>
+                      Fetch Data
+                    </Button>
 
-              {this.state.status_flags.fetching_data && (
-                <>
-                  <Loading description="Active loading indicator" withOverlay />
-                </>
-              )}
+                    {this.state.linkToDailyBulletin && (
+                      <Link
+                        href={this.state.linkToDailyBulletin}
+                        target="_blank">
+                        <Button kind="primary" size="sm">
+                          View Bulletin
+                        </Button>
+                      </Link>
+                    )}
 
-              {this.state.data.map(function(item, key) {
-                return (
-                  <div key={key}>
-                    {item.columns.map(function(e, i) {
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+
+                    <h4>Download full data</h4>
+                    <hr />
+
+                    <a
+                      href={
+                        'https://github.com/IBM/covid19-india-data/raw/main/data/' +
+                        this.state.short_name +
+                        '.xlsx'
+                      }
+                      download={this.state.short_name + '_data.xlsx'}
+                      className="button-generic">
+                      <Button kind="secondary" size="sm">
+                        Excel
+                      </Button>
+                    </a>
+
+                    <a
+                      href={'https://ibm.biz/covid19-india-db'}
+                      download="covid19-india-db"
+                      className="button-generic">
+                      <Button kind="secondary" size="sm">
+                        SQL
+                      </Button>
+                    </a>
+
+                    {this.state.link_to_govt_dashboard && (
+                      <>
+                        <br />
+                        <br />
+
+                        <ActionableNotification
+                          actionButtonLabel="View"
+                          aria-label="close notification"
+                          kind="info"
+                          closeOnEscape
+                          hideCloseButton
+                          lowContrast
+                          onActionButtonClick={() => {
+                            window.open(
+                              this.state.link_to_govt_dashboard,
+                              '_blank'
+                            );
+                          }}
+                          statusIconDescription="notification"
+                          subtitle={
+                            <span>
+                              Check out the efforts of the state government on
+                              their website{' '}
+                              <Link
+                                href={this.state.link_to_govt_dashboard}
+                                target="_blank">
+                                here
+                              </Link>
+                              .
+                            </span>
+                          }
+                          title="Official Dashboard"
+                        />
+                      </>
+                    )}
+                  </Column>
+
+                  <Column lg={4} md={4} sm={4}>
+                    <br />
+                    <br />
+
+                    {this.state.status_flags.fetching_data && (
+                      <>
+                        <Loading
+                          description="Active loading indicator"
+                          withOverlay
+                        />
+                      </>
+                    )}
+
+                    {this.state.data.map(function(item, key) {
                       return (
-                        <React.Fragment key={i}>
-                          {e !== 'Date' && (
-                            <>
-                              <LineChart
-                                key={i}
-                                data={prepareData(item.data, [e], [i])}
-                                options={prepareOptions(
-                                  item.title,
-                                  e,
-                                  item.title
-                                )}></LineChart>
+                        <div key={key}>
+                          {item.columns.map(function(e, i) {
+                            return (
+                              <React.Fragment key={i}>
+                                {e !== 'Date' && (
+                                  <>
+                                    <LineChart
+                                      key={i}
+                                      data={prepareData(item.data, [e], [i])}
+                                      options={prepareOptions(
+                                        item.title,
+                                        e,
+                                        item.title
+                                      )}></LineChart>
 
-                              <br />
-                              <hr />
-                              <br />
-                            </>
-                          )}
-                        </React.Fragment>
+                                    <br />
+                                    <hr />
+                                    <br />
+                                  </>
+                                )}
+                              </React.Fragment>
+                            );
+                          })}
+                        </div>
                       );
                     })}
-                  </div>
-                );
-              })}
 
-              {this.state.dataOnDate.map(function(item, key) {
-                return <DataTableElement key={key} props={item} />;
-              })}
-            </Tab>
-            <Tab label="View Schema">
-              <div className="some-content">
-                <img alt="" src={this.state.link_to_db_schema} width="100%" />
-                <br />
-                <br />
-                <Link
-                  href={config['metadata']['link_to_schemas']}
-                  target="_blank">
-                  <Button size="small" kind="secondary">
-                    Details
-                  </Button>
-                </Link>
-              </div>
-            </Tab>
-            <Tab label="View API">
-              <div className="some-content">
-                <p>
-                  To access the full API, please refer to the documentation{' '}
-                  <Link href="/#/data">here</Link>.
-                </p>
-                <hr />
-                <br />
+                    {this.state.dataOnDate.map(function(item, key) {
+                      return <DataTableElement key={key} props={item} />;
+                    })}
+                  </Column>
+                </Grid>
+              </TabPanel>
+              <TabPanel>
+                <div className="some-content">
+                  <img alt="" src={this.state.link_to_db_schema} width="100%" />
+                  <br />
+                  <br />
+                  <Link
+                    href={config['metadata']['link_to_schemas']}
+                    target="_blank">
+                    <Button size="sm" kind="secondary">
+                      Details
+                    </Button>
+                  </Link>
+                </div>
+              </TabPanel>
+              <TabPanel>
+                <div className="some-content">
+                  <p>
+                    To access the full API, please refer to the documentation{' '}
+                    <Link href="/#/data">here</Link>.
+                  </p>
+                  <hr />
+                  <br />
 
-                {this.state.schema.map((item, id) => {
-                  const table_link =
-                    config['metadata']['data_server'] +
-                    '/get_data?state=' +
-                    this.state.short_name +
-                    '&table=' +
-                    item.title;
+                  {this.state.schema.map((item, id) => {
+                    const table_link =
+                      config['metadata']['data_server'] +
+                      '/get_data?state=' +
+                      this.state.short_name +
+                      '&table=' +
+                      item.title;
 
-                  return (
-                    <>
-                      <CodeSnippet
-                        type="single"
-                        style={{ marginBottom: '10px', maxWidth: '100%' }}>
-                        GET &nbsp;
-                        <Link href={table_link} target="_blank">
-                          {table_link}
-                        </Link>
-                      </CodeSnippet>
+                    return (
+                      <>
+                        <CodeSnippet
+                          type="single"
+                          style={{ marginBottom: '10px', maxWidth: '100%' }}>
+                          GET &nbsp;
+                          <Link href={table_link} target="_blank">
+                            {table_link}
+                          </Link>
+                        </CodeSnippet>
 
-                      {item.columns.map((c, i) => {
-                        const column_link = table_link + '&column=' + c;
+                        {item.columns.map((c, i) => {
+                          const column_link = table_link + '&column=' + c;
 
-                        if (c !== 'date')
-                          return (
-                            <CodeSnippet
-                              key={i}
-                              type="single"
-                              style={{
-                                marginBottom: '10px',
-                                maxWidth: '100%',
-                              }}>
-                              GET &nbsp;
-                              <Link href={column_link} target="_blank">
-                                {column_link}
-                              </Link>
-                            </CodeSnippet>
-                          );
-                        return null;
-                      })}
-                    </>
-                  );
-                })}
-              </div>
-            </Tab>
+                          if (c !== 'date')
+                            return (
+                              <CodeSnippet
+                                key={i}
+                                type="single"
+                                style={{
+                                  marginBottom: '10px',
+                                  maxWidth: '100%',
+                                }}>
+                                GET &nbsp;
+                                <Link href={column_link} target="_blank">
+                                  {column_link}
+                                </Link>
+                              </CodeSnippet>
+                            );
+                          return null;
+                        })}
+                      </>
+                    );
+                  })}
+                </div>
+              </TabPanel>
+            </TabPanels>
           </Tabs>
-        </div>
-      </div>
+        </Column>
+      </Grid>
     );
   }
 }

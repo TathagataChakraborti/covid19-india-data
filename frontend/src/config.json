@@ -1,6 +1,6 @@
 {
   "metadata" : {
-    "data_server"     : "https://covid-19-data-india-storage.mybluemix.net",
+    "data_server"     : "https://covid19-india-data.onrender.com",
     "link_to_data"    : "https://ibm.biz/covid19-india-db",
     "link_to_slack"   : "https://join.slack.com/t/covid-19-india-data/shared_invite/zt-uej5v98i-mjggggkLMASKFbZRXzq4xw",
     "link_to_code"    : "https://github.com/IBM/covid19-india-data",

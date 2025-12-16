@@ -2,9 +2,10 @@ import React from 'react';
 import GitHubButton from 'react-github-btn';
 import { generateStateID } from '../../components/Info';
 import { Link } from 'react-router-dom';
-import { Tag } from 'carbon-components-react';
 import {
+  Tag,
   Header,
+  HeaderContainer,
   HeaderMenuButton,
   HeaderName,
   SkipToContent,
@@ -13,9 +14,7 @@ import {
   SideNavLink,
   SideNavDivider,
   SideNavMenuItem,
-} from 'carbon-components-react/lib/components/UIShell';
-
-import HeaderContainer from 'carbon-components-react/lib/components/UIShell/HeaderContainer';
+} from '@carbon/react';
 
 let config = require('../../config.json');
 let states = config['states'];
@@ -110,7 +109,7 @@ class PageHeader extends React.Component {
                     onClick={this.onClickTab.bind(this, 'tasks')}
                     isActive={this.state.tasks}>
                     Datathon{' '}
-                    <Tag type="green" className="compressed-tag">
+                    <Tag type="green" className="compressed-tag flattened-tag">
                       new
                     </Tag>
                   </SideNavLink>
@@ -147,14 +146,20 @@ class PageHeader extends React.Component {
                         {states[key]['name']}
 
                         {states[key]['is_complete'] && (
-                          <Tag type="blue" className="compressed-tag">
+                          <Tag
+                            type="blue"
+                            className="compressed-tag flattened-tag"
+                            style={{ marginLeft: '10px' }}>
                             {' '}
                             completed{' '}
                           </Tag>
                         )}
 
                         {!states[key]['is_complete'] && (
-                          <Tag type="gray" className="compressed-tag">
+                          <Tag
+                            type="gray"
+                            className="compressed-tag flattened-tag"
+                            style={{ marginLeft: '10px' }}>
                             {' '}
                             in progress{' '}
                           </Tag>
