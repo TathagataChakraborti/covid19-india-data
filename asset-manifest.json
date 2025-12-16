@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/covid19-india-data/static/css/main.6da5e44f.css",
-    "main.js": "/covid19-india-data/static/js/main.2c5ebb88.js",
+    "main.js": "/covid19-india-data/static/js/main.2b2c0a9e.js",
     "static/media/IBMPlexSerif-SemiBoldItalic-Cyrillic.woff2": "/covid19-india-data/static/media/IBMPlexSerif-SemiBoldItalic-Cyrillic.2861a6629748147a32ea.woff2",
     "static/media/IBMPlexSerif-SemiBoldItalic-Latin1.woff2": "/covid19-india-data/static/media/IBMPlexSerif-SemiBoldItalic-Latin1.6305238484fd3cc045b0.woff2",
     "static/media/IBMPlexSerif-Italic-Cyrillic.woff2": "/covid19-india-data/static/media/IBMPlexSerif-Italic-Cyrillic.44c432e4a678791737ca.woff2",
@@ -96,6 +96,6 @@
   },
   "entrypoints": [
     "static/css/main.6da5e44f.css",
-    "static/js/main.2c5ebb88.js"
+    "static/js/main.2b2c0a9e.js"
   ]
 }
