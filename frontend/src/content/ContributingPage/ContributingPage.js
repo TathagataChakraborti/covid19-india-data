@@ -1,7 +1,7 @@
 import React from 'react';
 import { Contributing, Resource } from '../../components/Info';
 import { LogoGithub, LogoSlack, Sql, Api } from '@carbon/icons-react';
-import { Tag, Link, Button, CodeSnippet } from '@carbon/react';
+import { Grid, Column, Tag, Link, Button, CodeSnippet } from '@carbon/react';
 
 let config = require('../../config.json');
 let resource_list = [
@@ -103,9 +103,7 @@ function filterContributors(contributorsList) {
 }
 
 const Contributor = props => (
-  <div
-    className="bx--col-sm-1 bx--col-md-2 bx--col-lg-2"
-    style={{ padding: '10px' }}>
+  <Column lg={2} md={2} sm={4} style={{ padding: '50px' }}>
     <Link href={props.props.html_url} target="_blank">
       <img
         alt="Contributor Info"
@@ -113,7 +111,7 @@ const Contributor = props => (
         className="contributors"
       />
     </Link>
-  </div>
+  </Column>
 );
 
 class ContributingPage extends React.Component {
@@ -135,17 +133,13 @@ class ContributingPage extends React.Component {
 
   render() {
     return (
-      <div
-        className="bx--grid bx--grid--full-width bx--container"
-        style={{
-          width: '100%',
-          minHeight: '100vh',
-        }}>
-        <div className="bx--col-lg-16">
+      <Grid className="offset">
+        <Column lg={{ start: 4, end: 16 }} md={{ start: 2, end: 9 }} sm={4}>
           <h3>Contributing</h3>
           <hr />
           <br />
-          <div className="bx--row">
+
+          <Grid>
             <Contributing
               props={{
                 icon: <LogoGithub />,
@@ -182,10 +176,10 @@ class ContributingPage extends React.Component {
                 internal: true,
               }}
             />
-          </div>
+          </Grid>
 
-          <div className="bx--row">
-            <div className="bx--col-lg-8">
+          <Grid>
+            <Column lg={4} md={4} sm={4}>
               <h3>Read the Paper</h3>
               <hr />
               <br />
@@ -210,16 +204,16 @@ class ContributingPage extends React.Component {
                 href="https://arxiv.org/abs/2110.02311"
                 target="_blank"
                 className="button-generic">
-                <Button size="field" kind="secondary">
+                <Button size="sm" kind="secondary">
                   Read
                 </Button>
               </Link>
               <br />
               <br />
               <br />
-            </div>
+            </Column>
 
-            <div className="bx--col-lg-8">
+            <Column lg={8} md={8} sm={4}>
               <h3>
                 Top Contributors{' '}
                 <span style={{ fontSize: 'large', fontWeight: '100' }}>
@@ -233,50 +227,47 @@ class ContributingPage extends React.Component {
               <hr />
               <br />
 
-              <div className="bx--row">
+              <Grid>
                 {this.state.contributors.map((item, index) => {
                   return <Contributor props={item} />;
                 })}
-              </div>
-            </div>
-          </div>
+              </Grid>
+            </Column>
 
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+            <Column lg={8} md={8} sm={4}>
+              <h3 id="resources">Additional Resources</h3>
+              <hr />
+              <br />
 
-          <h3 id="resources">Additional Resources</h3>
-          <hr />
-          <br />
+              <Grid>
+                <Column lg={4} md={8} sm={4}>
+                  {resource_list.map((item, key) => {
+                    return (
+                      <>
+                        {key <= resource_list.length / 2 && (
+                          <Resource key={key} props={item} />
+                        )}
+                      </>
+                    );
+                  })}
+                </Column>
 
-          <div className="bx--row" style={{ marginBottom: '100px' }}>
-            <div className="bx--col-lg-8">
-              {resource_list.map((item, key) => {
-                return (
-                  <>
-                    {key <= resource_list.length / 2 && (
-                      <Resource key={key} props={item} />
-                    )}
-                  </>
-                );
-              })}
-            </div>
-            <div className="bx--col-lg-8">
-              {resource_list.map((item, key) => {
-                return (
-                  <>
-                    {key > resource_list.length / 2 && (
-                      <Resource key={key} props={item} />
-                    )}
-                  </>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
+                <Column lg={4} md={8} sm={4}>
+                  {resource_list.map((item, key) => {
+                    return (
+                      <>
+                        {key > resource_list.length / 2 && (
+                          <Resource key={key} props={item} />
+                        )}
+                      </>
+                    );
+                  })}
+                </Column>
+              </Grid>
+            </Column>
+          </Grid>
+        </Column>
+      </Grid>
     );
   }
 }

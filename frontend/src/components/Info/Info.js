@@ -1,6 +1,7 @@
 import React from 'react';
 import { processName } from '../BasicElement';
 import {
+  Column,
   Tile,
   ClickableTile,
   DataTable,
@@ -111,7 +112,7 @@ const generateStateID = stateName => {
 };
 
 const Contributing = props => (
-  <div className="bx--col-lg-4">
+  <Column lg={1} md={2} sm={4}>
     <ClickableTile
       className="contributing-card-inner"
       href={props.props.link}
@@ -123,7 +124,7 @@ const Contributing = props => (
     </ClickableTile>
     <br />
     <br />
-  </div>
+  </Column>
 );
 
 const Resource = props => (

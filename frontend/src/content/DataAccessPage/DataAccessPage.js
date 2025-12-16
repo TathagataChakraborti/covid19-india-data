@@ -2,10 +2,12 @@ import React from 'react';
 import { Sql, Api, Csv } from '@carbon/icons-react';
 import * as CodeSnippets from './CodeSnippets.js';
 import {
+  Grid,
+  Column,
   Link,
   Button,
   CodeSnippet,
-  ToastNotification,
+  ActionableNotification,
   UnorderedList,
   ListItem,
 } from '@carbon/react';
@@ -26,13 +28,8 @@ class DataAccessPage extends React.Component {
 
   render() {
     return (
-      <div
-        className="bx--grid bx--grid--full-width bx--container"
-        style={{
-          width: '100%',
-          minHeight: '100vh',
-        }}>
-        <div className="bx--col-lg-12">
+      <Grid className="offset">
+        <Column lg={{ start: 4, end: 16 }} md={{ start: 2, end: 9 }} sm={4}>
           <h3>
             {' '}
             <Sql className="text-blue" /> Download the SQL Database{' '}
@@ -59,17 +56,8 @@ class DataAccessPage extends React.Component {
           <br />
           <br />
 
-          <div className="bx--row">
-            <div className="bx--col-lg-8">
-              <img
-                src="https://www.dropbox.com/s/3i6g19sdac2psom/DB_Browser.png?raw=1"
-                width="100%"
-                alt="DB Browser"
-              />
-              <br />
-              <br />
-            </div>
-            <div className="bx--col-lg-8">
+          <Grid>
+            <Column lg={2} md={4} sm={4}>
               <p>
                 We recommend using{' '}
                 <Link href="https://www.sqlite.org/index.html" target="_blank">
@@ -116,403 +104,432 @@ class DataAccessPage extends React.Component {
 
               <br />
               <CodeSnippet type="multi">{CodeSnippets.sql_python}</CodeSnippet>
-            </div>
-          </div>
 
-          <br />
-          <br />
-          <p>
-            You can find the DB schemas for each state on its corresponding page
-            here or on the{' '}
-            <Link href={config['metadata']['link_to_schemas']} target="_blank">
-              GitHub Wiki
-            </Link>
-            . You can also fetch the data on some particular date, on each
-            state-level page here, to see what it looks like.
-          </p>
-          <br />
-          <Link
-            href={config['metadata']['link_to_data']}
-            target="_blank"
-            className="button-generic">
-            <Button size="small">Download</Button>
-          </Link>
-          <Link
-            href={config['metadata']['link_to_code']}
-            target="_blank"
-            className="button-generic">
-            <Button size="small" kind="secondary">
-              Code
-            </Button>
-          </Link>
-        </div>
-        <br />
-        <br />
-        <br />
-        <div className="bx--col-lg-12">
-          <h3>
-            {' '}
-            <Csv className="text-blue" /> Download in CSV form{' '}
-            {this.state.db_access && (
-              <span style={{ fontSize: 'x-large' }}>
-                {this.state.csv_access} downloads
-              </span>
-            )}
-          </h3>
-          <hr />
-          <div className="bx--row">
-            <div className="bx--col-lg-4">
+              <br />
+              <br />
+              <p>
+                You can find the DB schemas for each state on its corresponding
+                page here or on the{' '}
+                <Link
+                  href={config['metadata']['link_to_schemas']}
+                  target="_blank">
+                  GitHub Wiki
+                </Link>
+                . You can also fetch the data on some particular date, on each
+                state-level page here, to see what it looks like.
+              </p>
+              <br />
+              <Link
+                href={config['metadata']['link_to_data']}
+                target="_blank"
+                className="button-generic">
+                <Button size="sm">Download</Button>
+              </Link>
+              <Link
+                href={config['metadata']['link_to_code']}
+                target="_blank"
+                className="button-generic">
+                <Button size="sm" kind="secondary">
+                  Code
+                </Button>
+              </Link>
+              <br />
+              <br />
+              <br />
+            </Column>
+
+            <Column lg={2} md={4} sm={4}>
               <img
-                src="https://www.dropbox.com/s/fdswek50t75j9bs/export_csv_india_covid_data.png?raw=1"
+                src="https://www.dropbox.com/s/3i6g19sdac2psom/DB_Browser.png?raw=1"
                 width="100%"
-                alt="CSV export button"
+                alt="DB Browser"
               />
               <br />
               <br />
-            </div>
+            </Column>
+          </Grid>
 
-            <div className="bx--col-lg-12">
-              <p>
-                If you prefer to download the data in CSV form, you can do so by
-                navigating to each state page. The data selector lets you pick
-                one or more tables and optionally one or more columns within
-                those selected tables to visualize. Once the graphs render you
-                can select the CSV export option on the top right corner of the
-                image for the ones you want to save. Note that the data is
-                sampled at the rate selected on top of each page before making
-                the call for rendering.
-              </p>
-              <br />
-              <p>
-                Remember that not all data is time series and may not be
-                available to visualize on each state-level page, e.g. individual
-                case data for Tamil Nadu. For full access to data, we recommend
-                using the APIs or the SQL DB.
-              </p>
-              <br />
-              <p>
-                <strong>
-                  You can also download the entire state data as an Excel
-                  spreadsheet by clicking on the corresponding download option
-                  on each state-level page.
-                </strong>{' '}
-                All the files are also available together{' '}
+          <Column lg={4} md={4} sm={4}>
+            <br />
+            <br />
+
+            <h3>
+              {' '}
+              <Csv className="text-blue" /> Download in CSV form{' '}
+              {this.state.db_access && (
+                <span style={{ fontSize: 'x-large' }}>
+                  {this.state.csv_access} downloads
+                </span>
+              )}
+            </h3>
+            <hr />
+
+            <Grid>
+              <Column lg={3} md={4} sm={4}>
+                <p>
+                  If you prefer to download the data in CSV form, you can do so
+                  by navigating to each state page. The data selector lets you
+                  pick one or more tables and optionally one or more columns
+                  within those selected tables to visualize. Once the graphs
+                  render you can select the CSV export option on the top right
+                  corner of the image for the ones you want to save. Note that
+                  the data is sampled at the rate selected on top of each page
+                  before making the call for rendering.
+                </p>
+                <br />
+                <p>
+                  Remember that not all data is time series and may not be
+                  available to visualize on each state-level page, e.g.
+                  individual case data for Tamil Nadu. For full access to data,
+                  we recommend using the APIs or the SQL DB.
+                </p>
+                <br />
+                <p>
+                  <strong>
+                    You can also download the entire state data as an Excel
+                    spreadsheet by clicking on the corresponding download option
+                    on each state-level page.
+                  </strong>{' '}
+                  All the files are also available together{' '}
+                  <Link
+                    href="https://github.com/IBM/covid19-india-data/raw/main/data"
+                    target="_blank">
+                    here
+                  </Link>
+                  .
+                </p>
+              </Column>
+              <Column lg={1} md={4} sm={4}>
+                <img
+                  src="https://www.dropbox.com/s/fdswek50t75j9bs/export_csv_india_covid_data.png?raw=1"
+                  width="100%"
+                  alt="CSV export button"
+                />
+              </Column>
+            </Grid>
+          </Column>
+          <br />
+          <br />
+          <br />
+
+          <Column lg={4} md={4} sm={4}>
+            <h3>
+              {' '}
+              <Api className="text-blue" /> Connect to the API{' '}
+              {this.state.db_access && (
+                <span style={{ fontSize: 'x-large' }}>
+                  {this.state.api_access} downloads
+                </span>
+              )}
+            </h3>
+            <hr />
+            <p>
+              There are several ways to interface to the data through the API.{' '}
+              <strong>
+                If you need to use the API with a large volume of requests,
+                please set up your own server with the server side code provided{' '}
                 <Link
-                  href="https://github.com/IBM/covid19-india-data/raw/main/data"
+                  href={
+                    config['metadata']['link_to_code'] + '/tree/main/serve_db'
+                  }
                   target="_blank">
                   here
-                </Link>
-                .
-              </p>
-            </div>
-          </div>
-        </div>
-        <br />
-        <br />
-        <br />
-        <div className="bx--col-lg-12" style={{ marginBottom: '100px' }}>
-          <h3>
-            {' '}
-            <Api className="text-blue" /> Connect to the API{' '}
-            {this.state.db_access && (
-              <span style={{ fontSize: 'x-large' }}>
-                {this.state.api_access} downloads
-              </span>
-            )}
-          </h3>
-          <hr />
-          <p>
-            There are several ways to interface to the data through the API.{' '}
-            <strong>
-              If you need to use the API with a large volume of requests, please
-              set up your own server with the server side code provided{' '}
+                </Link>{' '}
+                with the downloaded DB.
+              </strong>
+            </p>
+            <br />
+            <br />
+            <h4>1. Query through SQL</h4>
+            <hr />
+            <p>
+              One way to access the data through the API is directly through an
+              SQL query. For some examples of SQL queries, please check out the
+              "Highlights" sections on the{' '}
+              <Link href="/#/analysis">Inter-State Comparison page</Link> and
+              the individual state-level pages where evailable e.g.{' '}
+              <Link href="/#/Delhi">Delhi</Link> and{' '}
+              <Link href="/#/WestBengal">West Bengal</Link>.
+            </p>
+            <br />
+            <CodeSnippet type="single">
+              POST {config['metadata']['data_server']}/query
+            </CodeSnippet>
+            <br />
+            <CodeSnippet type="multi">{CodeSnippets.sql_payload}</CodeSnippet>
+            <br />
+            <p>
+              The variable <span className="fake-backticks">scale_down</span> is
+              optional and indicates how many per days you want to sample the
+              data by. By defualt, it is set to 1 indicating that unless
+              specified you will get the data from all the dates when data is
+              available.
+            </p>
+            <br />
+            <h6>Example</h6>
+            <br />
+            <CodeSnippet type="multi">
+              {CodeSnippets.sql_payload_example}
+            </CodeSnippet>
+            <br />
+            <CodeSnippet type="multi">
+              {CodeSnippets.sql_data_example}
+            </CodeSnippet>
+            <br />
+            <br />
+            <h4>2. Query through Table or Column Name</h4>
+            <hr />
+            <p>
+              You can query the API with a{' '}
+              <span className="fake-backticks">TABLE</span> and a{' '}
+              <span className="fake-backticks">COLUMN</span> refering to the
+              data tables of a state bulletin. With no column specified, you
+              will get all the columns for the table. For valid table names, and
+              columns in them, refer to the{' '}
+              <Link
+                href={config['metadata']['link_to_schemas']}
+                target="_blank">
+                Wiki page on GitHub
+              </Link>{' '}
+              or to the DB schemas presented on the individual state pages (or
+              through the API as described below). The{' '}
+              <span className="fake-backticks">SHORT_NAME</span> used for the
+              state can be found in the{' '}
+              <Link
+                href="https://github.com/IBM/covid19-india-data/blob/main/frontend/src/config.json"
+                target="_blank">
+                configuration file
+              </Link>{' '}
+              or in the DB. You can also find the short name indicated on each
+              state-level page.
+            </p>
+            <br />
+            <CodeSnippet type="single">
+              GET {config['metadata']['data_server']}
+              /get_data?state=SHORT_NAME&table=TABLE
+            </CodeSnippet>
+            <br />
+            <CodeSnippet type="single">
+              GET {config['metadata']['data_server']}
+              /get_data?state=SHORT_NAME&table=TABLE&column=TABLE
+            </CodeSnippet>
+            <br />
+            <p>
+              For example, the following queries will fetch the data for all the
+              columns in the table titled{' '}
+              <span className="fake-backticks">DL_case_info</span> for Delhi for
+              every 10 days, and for the column titled{' '}
+              <span className="fake-backticks">cases_positive</span> in{' '}
+              <span className="fake-backticks">DL_case_info</span> for all days,
+              respectively.
+            </p>
+            <br />
+            <CodeSnippet type="single">
+              GET{' '}
               <Link
                 href={
-                  config['metadata']['link_to_code'] + '/tree/main/serve_db'
+                  config['metadata']['data_server'] +
+                  '/get_data?state=DL&table=DL_case_info&rate=10'
                 }
                 target="_blank">
-                here
+                {config['metadata']['data_server']}
+                /get_data?state=DL&table=DL_case_info&rate=10
+              </Link>
+            </CodeSnippet>
+            <br />
+            <CodeSnippet type="single">
+              GET{' '}
+              <Link
+                href={
+                  config['metadata']['data_server'] +
+                  '/get_data?state=DL&table=DL_case_info&column=cases_positive'
+                }
+                target="_blank">
+                {config['metadata']['data_server']}
+                /get_data?state=DL&table=DL_case_info&column=cases_positive
+              </Link>
+            </CodeSnippet>
+            <br />
+            <br />
+            <h4>3. Complex Queries</h4>
+            <hr />
+            <p>
+              For more complex queries with multiple tables and columns,
+              construct the following payload.
+            </p>
+            <br />
+            <CodeSnippet type="single">
+              POST {config['metadata']['data_server']}/fetch_data
+            </CodeSnippet>
+            <br />
+            <CodeSnippet type="multi">{CodeSnippets.list_payload}</CodeSnippet>
+            <br />
+            <p>
+              As before, <span className="fake-backticks">SHORT_NAME</span>{' '}
+              refers to the short name of an Indian state, as indicated in the{' '}
+              <Link
+                href="https://github.com/IBM/covid19-india-data/blob/main/frontend/src/config.json"
+                target="_blank">
+                configuration file
               </Link>{' '}
-              with the downloaded DB.
-            </strong>
-          </p>
-          <br />
-          <br />
-          <h4>1. Query through SQL</h4>
-          <hr />
-          <p>
-            One way to access the data through the API is directly through an
-            SQL query. For some examples of SQL queries, please check out the
-            "Highlights" sections on the{' '}
-            <Link href="/#/analysis">Inter-State Comparison page</Link> and the
-            individual state-level pages where evailable e.g.{' '}
-            <Link href="/#/Delhi">Delhi</Link> and{' '}
-            <Link href="/#/WestBengal">West Bengal</Link>.
-          </p>
-          <br />
-          <CodeSnippet type="single">
-            POST {config['metadata']['data_server']}/query
-          </CodeSnippet>
-          <br />
-          <CodeSnippet type="multi">{CodeSnippets.sql_payload}</CodeSnippet>
-          <br />
-          <p>
-            The variable <span className="fake-backticks">scale_down</span> is
-            optional and indicates how many per days you want to sample the data
-            by. By defualt, it is set to 1 indicating that unless specified you
-            will get the data from all the dates when data is available.
-          </p>
-          <br />
-          <h6>Example</h6>
-          <br />
-          <CodeSnippet type="multi">
-            {CodeSnippets.sql_payload_example}
-          </CodeSnippet>
-          <br />
-          <CodeSnippet type="multi">
-            {CodeSnippets.sql_data_example}
-          </CodeSnippet>
-          <br />
-          <br />
-          <h4>2. Query through Table or Column Name</h4>
-          <hr />
-          <p>
-            You can query the API with a{' '}
-            <span className="fake-backticks">TABLE</span> and a{' '}
-            <span className="fake-backticks">COLUMN</span> refering to the data
-            tables of a state bulletin. With no column specified, you will get
-            all the columns for the table. For valid table names, and columns in
-            them, refer to the{' '}
-            <Link href={config['metadata']['link_to_schemas']} target="_blank">
-              Wiki page on GitHub
-            </Link>{' '}
-            or to the DB schemas presented on the individual state pages (or
-            through the API as described below). The{' '}
-            <span className="fake-backticks">SHORT_NAME</span> used for the
-            state can be found in the{' '}
-            <Link
-              href="https://github.com/IBM/covid19-india-data/blob/main/frontend/src/config.json"
-              target="_blank">
-              configuration file
-            </Link>{' '}
-            or in the DB. You can also find the short name indicated on each
-            state-level page.
-          </p>
-          <br />
-          <CodeSnippet type="single">
-            GET {config['metadata']['data_server']}
-            /get_data?state=SHORT_NAME&table=TABLE
-          </CodeSnippet>
-          <br />
-          <CodeSnippet type="single">
-            GET {config['metadata']['data_server']}
-            /get_data?state=SHORT_NAME&table=TABLE&column=TABLE
-          </CodeSnippet>
-          <br />
-          <p>
-            For example, the following queries will fetch the data for all the
-            columns in the table titled{' '}
-            <span className="fake-backticks">DL_case_info</span> for Delhi for
-            every 10 days, and for the column titled{' '}
-            <span className="fake-backticks">cases_positive</span> in{' '}
-            <span className="fake-backticks">DL_case_info</span> for all days,
-            respectively.
-          </p>
-          <br />
-          <CodeSnippet type="single">
-            GET{' '}
-            <Link
-              href={
-                config['metadata']['data_server'] +
-                '/get_data?state=DL&table=DL_case_info&rate=10'
-              }
-              target="_blank">
-              {config['metadata']['data_server']}
-              /get_data?state=DL&table=DL_case_info&rate=10
-            </Link>
-          </CodeSnippet>
-          <br />
-          <CodeSnippet type="single">
-            GET{' '}
-            <Link
-              href={
-                config['metadata']['data_server'] +
-                '/get_data?state=DL&table=DL_case_info&column=cases_positive'
-              }
-              target="_blank">
-              {config['metadata']['data_server']}
-              /get_data?state=DL&table=DL_case_info&column=cases_positive
-            </Link>
-          </CodeSnippet>
-          <br />
-          <br />
-          <h4>3. Complex Queries</h4>
-          <hr />
-          <p>
-            For more complex queries with multiple tables and columns, construct
-            the following payload.
-          </p>
-          <br />
-          <CodeSnippet type="single">
-            POST {config['metadata']['data_server']}/fetch_data
-          </CodeSnippet>
-          <br />
-          <CodeSnippet type="multi">{CodeSnippets.list_payload}</CodeSnippet>
-          <br />
-          <p>
-            As before, <span className="fake-backticks">SHORT_NAME</span> refers
-            to the short name of an Indian state, as indicated in the{' '}
-            <Link
-              href="https://github.com/IBM/covid19-india-data/blob/main/frontend/src/config.json"
-              target="_blank">
-              configuration file
-            </Link>{' '}
-            or in the DB. You can also find the short name indicated on each
-            state-level page.
-          </p>
-          <br />
-          <p>
-            The <span className="fake-backticks">LIST_OF_NAMES</span> key
-            contains a list of{' '}
-            <Link
-              href="https://github.com/IBM/covid19-india-data/blob/main/serve_db/schemas.py#L7"
-              target="_blank">
-              TableSchema
-            </Link>{' '}
-            objects where each entry is a table name from that state bulletin
-            and none or more columns in it. If no columns are specified but a
-            table name is mentioned, then the entire table is returned. For
-            valid table names and columns in them, refer to the{' '}
-            <Link href={config['metadata']['link_to_schemas']} target="_blank">
-              Wiki page on GitHub
-            </Link>{' '}
-            or to the DB schemas presented on the individual state pages (or
-            through the API as described below).
-          </p>
-          <br />
-          <h6>Example</h6>
-          <br />
-          <CodeSnippet type="multi">{CodeSnippets.complex_query}</CodeSnippet>
-          <br />
-          <p>
-            This query will return, for the state of{' '}
-            <Link href="/#/Delhi">Delhi</Link> (DL), the full table titled
-            <span className="fake-backticks">DL_vaccination</span>, columns{' '}
-            <span className="fake-backticks">cases_positive</span>
-            and <span className="fake-backticks">cases_recovered</span> from
-            table <span className="fake-backticks">DL_case_info</span>, and
-            column <span className="fake-backticks">containment_zones</span>{' '}
-            from table <span className="fake-backticks">DL_containment</span>.
-          </p>
-          <br />
-          <CodeSnippet type="multi">
-            {CodeSnippets.complex_query_example}
-          </CodeSnippet>
-          <br />
-          <br />
-          <h4>4. Daily Data</h4>
-          <hr />
-          <p>
-            While all the previouos examples deal with time-series information,
-            you can also query data for a paricular date for a state using its{' '}
-            <span className="fake-backticks">SHORT_NAME</span> and your desired
-            date in a{' '}
-            <Link
-              href="https://dateparser.readthedocs.io/en/latest/#basic-usage"
-              target="_blank">
-              standard format
-            </Link>
-            .
-          </p>
-          <br />
-          <CodeSnippet type="single">
-            POST {config['metadata']['data_server']}/fetch_days_data
-          </CodeSnippet>
-          <br />
-          <CodeSnippet type="multi">{CodeSnippets.date_payload}</CodeSnippet>
-          <br />
-          <h6>Example</h6>
-          <br />
-          <CodeSnippet type="multi">
-            {CodeSnippets.example_date_payload}
-          </CodeSnippet>
-          <br />
-          <CodeSnippet type="multi">
-            {CodeSnippets.example_date_response}
-          </CodeSnippet>
-          <br />
-          <br />
-          <h4>5. Table Schemas</h4>
-          <hr />
-          <p>
-            As we noted previously, the schemas for the DB entries for each
-            state is documented on the individual state-level pages, and on the{' '}
-            <Link href={config['metadata']['link_to_schemas']} target="_blank">
-              GitHub Wiki
-            </Link>{' '}
-            for the project. You can also retrieve that information through the
-            API as follows. It will return the complete list of{' '}
-            <Link
-              href="https://github.com/IBM/covid19-india-data/blob/main/serve_db/schemas.py#L7"
-              target="_blank">
-              TableSchema
-            </Link>{' '}
-            objects for that state.
-          </p>
-          <br />
-          <CodeSnippet type="single">
-            POST {config['metadata']['data_server']}/fetch_schema
-          </CodeSnippet>
-          <br />
-          <CodeSnippet type="multi">{CodeSnippets.schema_payload}</CodeSnippet>
-          <br />
-          <h6>Example</h6>
-          <br />
-          <CodeSnippet type="multi">
-            {CodeSnippets.example_schema_payload}
-          </CodeSnippet>
-          <br />
-          <CodeSnippet type="multi">
-            {CodeSnippets.example_schema_reponse}
-          </CodeSnippet>
-          <br />
-          <br />
-          <h4>6. Dashboard Stats</h4>
-          <hr />
-          <p>
-            You can also get the daily statistics used on the{' '}
-            <Link href="/#/Dashboard">Dashboard</Link> the following endpoint.
-          </p>
-          <br />
-          <CodeSnippet type="single">
-            POST {config['metadata']['data_server']}/fetch_dashboard_data
-          </CodeSnippet>
-          <br />
-          <h6>Example</h6>
-          <br />
-          <CodeSnippet type="multi">{CodeSnippets.dashboard_data}</CodeSnippet>
-          <br />
-          <div>
-            <ToastNotification
-              kind="info"
-              hideCloseButton
-              lowContrast
-              caption={
-                <Link href={config['metadata']['link_to_code']} target="_blank">
-                  GitHub
-                </Link>
-              }
-              subtitle={
-                <span>
-                  If you would like to expand the API, please reach out.
-                  Contributions are welcome!
-                </span>
-              }
-              title="Extending the API"
-            />
-          </div>
-        </div>
-      </div>
+              or in the DB. You can also find the short name indicated on each
+              state-level page.
+            </p>
+            <br />
+            <p>
+              The <span className="fake-backticks">LIST_OF_NAMES</span> key
+              contains a list of{' '}
+              <Link
+                href="https://github.com/IBM/covid19-india-data/blob/main/serve_db/schemas.py#L7"
+                target="_blank">
+                TableSchema
+              </Link>{' '}
+              objects where each entry is a table name from that state bulletin
+              and none or more columns in it. If no columns are specified but a
+              table name is mentioned, then the entire table is returned. For
+              valid table names and columns in them, refer to the{' '}
+              <Link
+                href={config['metadata']['link_to_schemas']}
+                target="_blank">
+                Wiki page on GitHub
+              </Link>{' '}
+              or to the DB schemas presented on the individual state pages (or
+              through the API as described below).
+            </p>
+            <br />
+            <h6>Example</h6>
+            <br />
+            <CodeSnippet type="multi">{CodeSnippets.complex_query}</CodeSnippet>
+            <br />
+            <p>
+              This query will return, for the state of{' '}
+              <Link href="/#/Delhi">Delhi</Link> (DL), the full table titled
+              <span className="fake-backticks">DL_vaccination</span>, columns{' '}
+              <span className="fake-backticks">cases_positive</span>
+              and <span className="fake-backticks">cases_recovered</span> from
+              table <span className="fake-backticks">DL_case_info</span>, and
+              column <span className="fake-backticks">containment_zones</span>{' '}
+              from table <span className="fake-backticks">DL_containment</span>.
+            </p>
+            <br />
+            <CodeSnippet type="multi">
+              {CodeSnippets.complex_query_example}
+            </CodeSnippet>
+            <br />
+            <br />
+            <h4>4. Daily Data</h4>
+            <hr />
+            <p>
+              While all the previouos examples deal with time-series
+              information, you can also query data for a paricular date for a
+              state using its <span className="fake-backticks">SHORT_NAME</span>{' '}
+              and your desired date in a{' '}
+              <Link
+                href="https://dateparser.readthedocs.io/en/latest/#basic-usage"
+                target="_blank">
+                standard format
+              </Link>
+              .
+            </p>
+            <br />
+            <CodeSnippet type="single">
+              POST {config['metadata']['data_server']}/fetch_days_data
+            </CodeSnippet>
+            <br />
+            <CodeSnippet type="multi">{CodeSnippets.date_payload}</CodeSnippet>
+            <br />
+            <h6>Example</h6>
+            <br />
+            <CodeSnippet type="multi">
+              {CodeSnippets.example_date_payload}
+            </CodeSnippet>
+            <br />
+            <CodeSnippet type="multi">
+              {CodeSnippets.example_date_response}
+            </CodeSnippet>
+            <br />
+            <br />
+            <h4>5. Table Schemas</h4>
+            <hr />
+            <p>
+              As we noted previously, the schemas for the DB entries for each
+              state is documented on the individual state-level pages, and on
+              the{' '}
+              <Link
+                href={config['metadata']['link_to_schemas']}
+                target="_blank">
+                GitHub Wiki
+              </Link>{' '}
+              for the project. You can also retrieve that information through
+              the API as follows. It will return the complete list of{' '}
+              <Link
+                href="https://github.com/IBM/covid19-india-data/blob/main/serve_db/schemas.py#L7"
+                target="_blank">
+                TableSchema
+              </Link>{' '}
+              objects for that state.
+            </p>
+            <br />
+            <CodeSnippet type="single">
+              POST {config['metadata']['data_server']}/fetch_schema
+            </CodeSnippet>
+            <br />
+            <CodeSnippet type="multi">
+              {CodeSnippets.schema_payload}
+            </CodeSnippet>
+            <br />
+            <h6>Example</h6>
+            <br />
+            <CodeSnippet type="multi">
+              {CodeSnippets.example_schema_payload}
+            </CodeSnippet>
+            <br />
+            <CodeSnippet type="multi">
+              {CodeSnippets.example_schema_reponse}
+            </CodeSnippet>
+            <br />
+            <br />
+            <h4>6. Dashboard Stats</h4>
+            <hr />
+            <p>
+              You can also get the daily statistics used on the{' '}
+              <Link href="/#/Dashboard">Dashboard</Link> the following endpoint.
+            </p>
+            <br />
+            <CodeSnippet type="single">
+              POST {config['metadata']['data_server']}/fetch_dashboard_data
+            </CodeSnippet>
+            <br />
+            <h6>Example</h6>
+            <br />
+            <CodeSnippet type="multi">
+              {CodeSnippets.dashboard_data}
+            </CodeSnippet>
+            <br />
+            <div>
+              <ActionableNotification
+                actionButtonLabel="Code"
+                aria-label="close notification"
+                kind="info"
+                closeOnEscape
+                hideCloseButton
+                lowContrast
+                onActionButtonClick={() => {
+                  window.open(config['metadata']['link_to_code'], '_blank');
+                }}
+                statusIconDescription="notification"
+                subtitle={
+                  <span>
+                    If you would like to expand the API, please reach out.
+                    Contributions are welcome!
+                  </span>
+                }
+                title="Extending the API"
+              />
+            </div>
+          </Column>
+        </Column>
+      </Grid>
     );
   }
 }
